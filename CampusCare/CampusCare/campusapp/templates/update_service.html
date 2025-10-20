@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
-{% block title %}Update Service{% endblock %}
-
+{% block title %}Update Medical Service{% endblock %}
 {% block content %}
-<div class="card p-4">
-    <h2 class="text-primary mb-3">Update Medical Service</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }}
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{% url 'list_services' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="card p-5 text-center animate__animated animate__fadeInUp">
+  <h2 class="text-primary fw-bold mb-3">🩹 Update Medical Service</h2>
+  <p class="text-muted mb-4">
+    Update the information for an existing medical or healthcare service.
+  </p>
+
+  <form method="POST" class="text-start mx-auto" style="max-width: 600px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <button type="submit" class="btn btn-primary px-4">💾 Update</button>
+      <a href="{% url 'list_services' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+    </div>
+  </form>
 </div>
 {% endblock %}
