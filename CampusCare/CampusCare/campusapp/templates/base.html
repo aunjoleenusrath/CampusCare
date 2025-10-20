@@ -1,50 +1,174 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Care - {% block title %}{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: #f8fafc;
-            font-family: 'Poppins', sans-serif;
-        }
-        nav {
-            background-color: #34495e;
-        }
-        .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-        }
-        .container {
-            margin-top: 40px;
-        }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #777;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Care - {% block title %}{% endblock %}</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #eaf2ff, #c5dbff, #b3d1ff, #9fc3ff);
+      background-size: 300% 300%;
+      animation: gradientShift 10s ease infinite;
+      color: #0b1e54;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    a {text-decoration: none;}
+
+    nav.navbar {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      color: #0b2e73 !important;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.3px;
+      transition: transform 0.3s ease;
+    }
+    .navbar-brand:hover {transform: scale(1.05);}
+    .navbar-brand img {
+      height: 48px;
+      margin-right: 10px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.4s ease;
+    }
+    .navbar-brand:hover img {transform: rotate(-2deg) scale(1.05);}
+
+    main.container {
+      flex: 1;
+      margin-top: 60px;
+      animation: fadeUp 1s ease;
+    }
+    @keyframes fadeUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .card {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 25px;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    footer {
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      padding: 30px 0 20px;
+      color: #243869;
+      font-size: 0.9rem;
+      margin-top: auto;
+      position: relative;
+    }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 10px;
+    }
+    footer .footer-links a {
+      color: #1a49b8;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    footer .footer-links a:hover {color: #0b2e78; text-decoration: underline;}
+    footer .social-icons {
+      position: absolute;
+      right: 25px;
+      top: 15px;
+      display: flex;
+      gap: 15px;
+    }
+    footer .social-icons a {
+      color: #243869;
+      font-size: 1.2rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    footer .social-icons a:hover {
+      color: #1a49b8;
+      transform: scale(1.2);
+    }
+    footer .credit {
+      font-weight: 500;
+    }
+  </style>
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'list_services' %}">Campus Care</a>
+    <a class="navbar-brand" href="{% url 'diseases_page' %}">
+      <img src="{% static 'img/logo.png' %}" alt="UAP Logo">
+
+      Campus Care <span style="font-weight:400; font-size:0.9rem;">| University of Asia Pacific</span>
+        <div class="nav-buttons">
+    <a href="{% url 'index' %}" class="btn-login">Home</a>
+
+  </div>
+    </a>
   </div>
 </nav>
 
-<div class="container">
+<main class="container">
   {% block content %}{% endblock %}
-</div>
+</main>
 
 <footer>
-  <p>&copy; 2025 Campus Care | Health & Wellness Support</p>
+  <div class="footer-links">
+    <strong> Medical </strong>
+    <strong> Mental </strong>
+    <strong> Health </strong>
+    <strong> Student </strong>
+  </div>
+
+  <div class="social-icons">
+    <a href="#"><i class="bi bi-facebook"></i></a>
+    <a href="#"><i class="bi bi-twitter-x"></i></a>
+    <a href="#"><i class="bi bi-envelope-fill"></i></a>
+  </div>
+
+  <div class="credit">
+    &copy; 2025 <strong>Campus Care</strong> | University of Asia Pacific
+    <br>Empowering Wellness, Health & Student Growth 🌿
+  </div>
 </footer>
 
 </body>
