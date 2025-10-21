@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Update Support{% endblock %}
+
+{% block content %}
+<div class="card p-5 text-center animate__animated animate__fadeInUp">
+  <h2 class="text-primary fw-bold mb-3">📝 Update Support Information</h2>
+  <p class="text-muted mb-4">Modify details for an existing mental support or consultation service.</p>
+
+  <form method="POST" class="text-start mx-auto" style="max-width: 600px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <button type="submit" class="btn btn-primary px-4">💾 Update</button>
+      <a href="{% url 'list_supports' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
