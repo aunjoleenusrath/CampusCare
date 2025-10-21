@@ -1,6 +1,9 @@
 from django.apps import AppConfig
 
 
-class HealthmonitorConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigggAutoField'
-    name = 'healthmonitor'
+class HomeConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'home'
+class HomeConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'home'
