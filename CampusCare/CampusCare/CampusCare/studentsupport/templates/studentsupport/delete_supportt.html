@@ -3,108 +3,135 @@
 
 <!--
     HTML Template: Delete Student Support Page
-    Purpose: To confirm deletion of a student support entry.
+    Purpose: Confirm deletion of a student support entry
     Features:
         - Animated gradient background
         - Centered card with warning style
-        - Hover effects
-        - Responsive design
+        - Hover effects for modern UI feel
+        - Fully responsive design
         - Django template integration
-        - Detailed comments for each section
+        - Extensive comments for clarity
 -->
 
 <head>
 
-    <!-- Character encoding -->
+    <!-- Character encoding for correct text rendering -->
     <meta charset="UTF-8">
 
-    <!-- Page title -->
+    <!-- Page title shown in browser tab -->
     <title>
         Title
     </title>
 
-    <!-- Bootstrap CSS for responsive layout and components -->
+    <!-- Bootstrap CSS for layout and components -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons for using icons -->
+    <!-- Bootstrap Icons for button and warning icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Google Fonts: Poppins for modern typography -->
+    <!-- Google Fonts for modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS for styling -->
+    <!-- Custom CSS for page-specific styling -->
     <style>
 
         /* Body styling */
         body {
-            font-family: 'Poppins', sans-serif; /* Use Poppins font */
+            font-family: 'Poppins', sans-serif; /* Modern clean font */
             margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
-            background: linear-gradient(135deg, #fde2e2, #f9dada, #f2baba, #e99797); /* Light red gradient background */
-            background-size: 300% 300%; /* Smooth gradient animation */
-            animation: gradientFlow 15s ease infinite; /* Infinite gradient animation */
+            background: linear-gradient(135deg, #fde2e2, #f9dada, #f2baba, #e99797); /* Soft red gradient */
+            background-size: 300% 300%; /* Smooth animated gradient */
+            animation: gradientFlow 15s ease infinite; /* Infinite animation loop */
             color: #0b1e54; /* Default text color */
         }
 
         /* Gradient animation keyframes */
         @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        /* Card styling */
+        /* Card container styling */
         .card {
-            border-radius: 20px; /* Rounded corners for card */
-            background: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
-            backdrop-filter: blur(12px); /* Blur effect behind the card */
+            border-radius: 20px; /* Rounded corners */
+            background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+            backdrop-filter: blur(12px); /* Blur behind card for frosted glass effect */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
-            transition: all 0.3s ease; /* Smooth transition for hover */
+            transition: all 0.3s ease; /* Smooth hover transition */
             padding: 50px; /* Internal padding */
-            margin: 60px auto; /* Center the card horizontally and add vertical spacing */
-            max-width: 700px; /* Maximum width for card */
+            margin: 60px auto; /* Center horizontally with spacing */
+            max-width: 700px; /* Max card width */
             text-align: center; /* Center text inside card */
         }
 
-        /* Card hover effect */
+        /* Hover effect on card */
         .card:hover {
-            transform: translateY(-5px); /* Lift card slightly on hover */
+            transform: translateY(-5px); /* Lift on hover */
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
         }
 
         /* Heading styling */
         h2 {
-            font-weight: 700; /* Bold heading */
-            font-size: 2rem; /* Large heading size */
+            font-weight: 700; /* Bold text */
+            font-size: 2rem; /* Larger heading */
         }
 
         /* Paragraph styling */
         p {
             font-size: 1rem; /* Normal paragraph size */
-            color: #6c757d; /* Muted color for text */
+            color: #6c757d; /* Muted text color */
         }
 
-        /* Buttons styling */
+        /* Delete button styling */
         .btn-danger {
-            font-weight: 500; /* Medium font weight */
-            letter-spacing: 0.5px; /* Letter spacing for readability */
+            font-weight: 500; /* Medium weight text */
+            letter-spacing: 0.5px; /* Spacing between letters */
         }
 
+        /* Cancel button styling */
         .btn-outline-secondary {
-            font-weight: 500; /* Medium font weight */
+            font-weight: 500; /* Medium weight text */
             letter-spacing: 0.5px; /* Letter spacing */
         }
 
-        /* Container for action buttons */
+        /* Buttons container */
         .d-flex.gap-3 {
-            margin-top: 30px; /* Space above buttons */
+            margin-top: 30px; /* Spacing above buttons */
         }
 
-        /* Responsive adjustments for smaller screens */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .card {
-                padding: 30px; /* Reduce padding on smaller devices */
-                margin: 40px 15px; /* Reduce margin */
+                padding: 30px; /* Reduce padding on smaller screens */
+                margin: 40px 15px; /* Reduce margin on smaller devices */
+            }
+        }
+
+        /* Optional: add animation fade effect for card */
+        .animate__animated {
+            animation-duration: 1s;
+        }
+
+        .animate__fadeInDown {
+            animation-name: fadeInDown;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -114,61 +141,62 @@
 
 <body>
 
-<!-- Extend base.html for navbar, footer, and common layout -->
-{% extends 'base.html' %}
+    <!-- Extend base template for navbar, footer, and layout -->
+    {% extends 'base.html' %}
 
-<!-- Block for page title -->
-{% block title %}
-    Delete Student Support
-{% endblock %}
+    <!-- Title block for page -->
+    {% block title %}
+        Delete Student Support
+    {% endblock %}
 
+    <!-- Main content -->
+    {% block content %}
 
-<!-- Main content block -->
-{% block content %}
+        <!-- Card container for confirmation message -->
+        <div class="card p-5 text-center animate__animated animate__fadeInDown">
 
-    <!-- Card container for delete confirmation -->
-    <div class="card p-5 text-center animate__animated animate__fadeInDown">
+            <!-- Heading -->
+            <h2 class="text-danger fw-bold mb-3">
+                ⚠️ Confirm Deletion
+            </h2>
 
-        <!-- Heading -->
-        <h2 class="text-danger fw-bold mb-3">
-            ⚠️ Confirm Deletion
-        </h2>
+            <!-- Warning message -->
+            <p class="text-muted mb-4">
+                You are about to permanently remove
+                <strong>{{ support.name }}</strong>.<br>
+                This action cannot be undone.
+            </p>
 
-        <!-- Warning message -->
-        <p class="text-muted mb-4">
-            You are about to permanently remove
-            <strong>{{ support.name }}</strong>.<br>
-            This action cannot be undone.
-        </p>
+            <!-- Form to confirm deletion -->
+            <form method="POST">
 
-        <!-- Form to confirm deletion -->
-        <form method="POST">
+                <!-- CSRF token for security -->
+                {% csrf_token %}
 
-            <!-- CSRF token for security -->
-            {% csrf_token %}
+                <!-- Action buttons container -->
+                <div class="d-flex justify-content-center gap-3">
 
-            <!-- Buttons container -->
-            <div class="d-flex justify-content-center gap-3">
+                    <!-- Delete button -->
+                    <button type="submit" class="btn btn-danger px-4">
+                        Delete
+                    </button>
 
-                <!-- Delete button -->
-                <button type="submit" class="btn btn-danger px-4">
-                    Delete
-                </button>
+                    <!-- Cancel button -->
+                    <a href="{% url 'list_student_supports' %}" class="btn btn-outline-secondary px-4">
+                        Cancel
+                    </a>
 
-                <!-- Cancel button -->
-                <a href="{% url 'list_student_supports' %}" class="btn btn-outline-secondary px-4">
-                    Cancel
-                </a>
+                </div>
+                <!-- Buttons container ends -->
 
-            </div>
+            </form>
+            <!-- Form ends -->
 
-        </form>
-        <!-- Form ends -->
+        </div>
+        <!-- Card container ends -->
 
-    </div>
-    <!-- Card container ends -->
-
-{% endblock %}
+    {% endblock %}
+    <!-- Main content block ends -->
 
 </body>
 
