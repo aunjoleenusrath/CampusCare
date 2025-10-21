@@ -1,36 +1,36 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import HealthMonitor
-from .forms import HealthMonitorForm
+from .models import MentalSupport
+from .forms import MentalSupportForm
 
 # CREATE
-def add_monitor(request):
+def add_support(request):
     if request.method == 'POST':
-        form = HealthMonitorForm(request.POST)
+        form = MentalSupportForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_monitors')
+            return redirect('list_supports')
     else:
-        form = HealthMonitorForm()
-    return render(request, 'healthmonitor/add_monitor.html', {'form': form})
+        form = MentalSupportForm()
+    return render(request, 'mentalsupport/add_support.html', {'form': form})
 
 # READ
-def list_monitors(request):
-    monitors = HealthMonitor.objects.all()
-    return render(request, 'healthmonitor/list_monitors.html', {'monitors': monitors})
+def list_supports(request):
+    supports = MentalSupport.objects.all()
+    return render(request, 'mentalsupport/list_supports.html', {'supports': supports})
 
 # UPDATE
-def update_monitor(request, id):
-    monitor = get_object_or_404(HealthMonitor, id=id)
-    form = HealthMonitorForm(request.POST or None, instance=monitor)
+def update_support(request, id):
+    support = get_object_or_404(MentalSupport, id=id)
+    form = MentalSupportForm(request.POST or None, instance=support)
     if form.is_valid():
         form.save()
-        return redirect('list_monitors')
-    return render(request, 'healthmonitor/update_monitor.html', {'form': form})
+        return redirect('list_supports')
+    return render(request, 'mentalsupport/update_support.html', {'form': form})
 
 # DELETE
-def delete_monitor(request, id):
-    monitor = get_object_or_404(HealthMonitor, id=id)
+def delete_support(request, id):
+    support = get_object_or_404(MentalSupport, id=id)
     if request.method == 'POST':
-        monitor.delete()
-        return redirect('list_monitors')
-    return render(request, 'healthmonitor/delete-monitor.html', {'monitor': monitor})
+        support.delete()
+        return redirect('list_supports')
+    return render(request, 'mentalsupport/delete_support.html', {'support': support})
