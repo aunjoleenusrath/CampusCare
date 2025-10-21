@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'mentalsupport',
     'healthmonitor',
     'studentsupport',
-    # 'home',
+    'home',
 ]
 
 MIDDLEWARE = [
