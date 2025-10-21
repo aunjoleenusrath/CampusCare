@@ -6,6 +6,6 @@ class MentalSupportForm(forms.ModelForm):
         model = MentalSupport
         fields = ['name', 'description']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter support type'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Add description...'}),
+            'Name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter support type'}),
+            'Description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Add description...'}),
         }
