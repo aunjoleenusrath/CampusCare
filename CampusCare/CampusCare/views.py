@@ -1,48 +1,36 @@
-# home/views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import HealthMonitor
+from .forms import HealthMonitorForm
 
-def index(request):
-    return render(request, 'home/index.html')
-
-def login_page(request):
+# CREATE
+def add_monitor(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        form = HealthMonitorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_monitors')
+    else:
+        form = HealthMonitorForm()
+    return render(request, 'healthmonitor/add_monitor.html', {'form': form})
 
-        # (For now, just simulate login)
-        # In a real app, you'd authenticate user here
-        if email and password:
-            return redirect('diseases_page')  # ✅ redirect to diseases page
-        else:
-            return render(request, 'home/login.html', {'error': 'Invalid credentials'})
+# READ
+def list_monitors(request):
+    monitors = HealthMonitor.objects.all()
+    return render(request, 'healthmonitor/list_monitors.html', {'monitors': monitors})
 
-    return render(request, 'home/login.html')
+# UPDATE
+def update_monitor(request, id):
+    monitor = get_object_or_404(HealthMonitor, id=id)
+    form = HealthMonitorForm(request.POST or None, instance=monitor)
+    if form.is_valid():
+        form.save()
+        return redirect('list_monitors')
+    return render(request, 'healthmonitor/update_monitor.html', {'form': form})
 
-def signup_page(request):
+# DELETE
+def delete_monitor(request, id):
+    monitor = get_object_or_404(HealthMonitor, id=id)
     if request.method == 'POST':
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        # (Simulated registration)
-        if full_name and email and password:
-            return redirect('login_page')  # ✅ redirect to login after signup
-        else:
-            return render(request, 'home/signup.html', {'error': 'Please fill all fields'})
-
-    return render(request, 'home/signup.html')
-
-def diseases_page(request):
-    return render(request, 'home/diseases.html')
-
-from django.shortcuts import render
-
-def payment_page(request):
-    item = request.GET.get("item", "Unknown")
-    price = request.GET.get("price", "—")
-    return render(request, 'home/payment.html', {"item": item, "price": price})
-
-def payment_gateway(request):
-    item = request.GET.get("item", "Unknown")
-    price = request.GET.get("price", "—")
-    return render(request, 'home/payment_gateway.html', {"item": item, "price": price})
+        monitor.delete()
+        return redirect('list_monitors')
+    return render(request, 'healthmonitor/delete-monitor.html', {'monitor': monitor})
