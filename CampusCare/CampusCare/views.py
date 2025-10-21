@@ -1,36 +1,36 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import HealthMonitor
-from .forms import HealthMonitorForm
+from .models import MedicalService
+from .forms import MedicalServiceForm
 
-
-def add_monitor(request):
+# CREATE
+def add_service(request):
     if request.method == 'POST':
-        form = HealthMonitorForm(request.POST)
+        form = MedicalServiceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_monitors')
+            return redirect('list_services')
     else:
-        form = HealthMonitorForm()
-    return render(request, 'healthmonitor/add_monitor.html', {'form': form})
+        form = MedicalServiceForm()
+    return render(request, 'add_service.html', {'form': form})
 
+# READ
+def list_services(request):
+    services = MedicalService.objects.all()
+    return render(request, 'list_services.html', {'services': services})
 
-def list_monitors(request):
-    monitors = HealthMonitor.objects.all()
-    return render(request, 'healthmonitor/list_monitors.html', {'monitors': monitors})
-
-
-def update_monitor(request, id):
-    monitor = get_object_or_404(HealthMonitor, id=id)
-    form = HealthMonitorForm(request.POST or None, instance=monitor)
+# UPDATE
+def update_service(request, id):
+    service = get_object_or_404(MedicalService, id=id)
+    form = MedicalServiceForm(request.POST or None, instance=service)
     if form.is_valid():
         form.save()
-        return redirect('list_monitors')
-    return render(request, 'healthmonitor/update_monitor.html', {'form': form})
+        return redirect('list_services')
+    return render(request, 'update_service.html', {'form': form})
 
-
-def delete_monitor(request, id):
-    monitor = get_object_or_404(HealthMonitor, id=id)
+# DELETE
+def delete_service(request, id):
+    service = get_object_or_404(MedicalService, id=id)
     if request.method == 'POST':
-        monitor.delete()
-        return redirect('list_monitors')
-    return render(request, 'healthmonitor/delete_monitor.html', {'monitor': monitor})
+        service.delete()
+        return redirect('list_services')
+    return render(request, 'delete_service.html', {'service': service})
