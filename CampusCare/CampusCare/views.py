@@ -1,36 +1,53 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import MedicalService
-from .forms import MedicalServiceForm
+# home/views.py
+from django.shortcuts import render, redirect
 
-# CREATE
-def add_service(request):
+def index(request):
+    return render(request, 'home/index.html')
+
+def login_page(request):
     if request.method == 'POST':
-        form = MedicalServiceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('list_services')
-    else:
-        form = MedicalServiceForm()
-    return render(request, 'add_service.html', {'form': form})
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-# READ
-def list_services(request):
-    services = MedicalService.objects.all()
-    return render(request, 'list_services.html', {'services': services})
+        # (For now, just simulate login)
+        # In a real app, you'd authenticate user here
+        if email and password:
+            return redirect('diseases_page')
+        else:
+            return render(request, 'home/login.html', {'error': 'Invalid credentials'})
 
-# UPDATE
-def update_service(request, id):
-    service = get_object_or_404(MedicalService, id=id)
-    form = MedicalServiceForm(request.POST or None, instance=service)
-    if form.is_valid():
-        form.save()
-        return redirect('list_services')
-    return render(request, 'update_service.html', {'form': form})
+    return render(request, 'home/login.html')
 
-# DELETE
-def delete_service(request, id):
-    service = get_object_or_404(MedicalService, id=id)
+def signup_page(request):
     if request.method == 'POST':
-        service.delete()
-        return redirect('list_services')
-    return render(request, 'delete_service.html', {'service': service})
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # (Simulated registration)
+        if full_name and email and password:
+            return redirect('login_page')
+        else:
+            return render(request, 'home/signup.html', {'error': 'Please fill all fields'})
+
+    return render(request, 'home/signup.html')
+
+def diseases_page(request):
+    return render(request, 'home/diseases.html')
+
+from django.shortcuts import render
+
+def payment_page(request):
+    item = request.GET.get("item", "Unknown")
+    price = request.GET.get("price", "—")
+    return render(request, 'home/payment.html', {"item": item, "price": price})
+
+def payment_gateway(request):
+    item = request.GET.get("item", "Unknown")
+    price = request.GET.get("price", "—")
+    return render(request, 'home/payment_gateway.html', {"item": item, "price": price})
+
+def payment_gateway(request):
+    item = request.GET.get("item", "Unknown")
+    price = request.GET.get("price", "—")
+    return render(request, 'home/payment_gateway.html', {"item": item, "price": price})
