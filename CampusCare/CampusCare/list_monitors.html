@@ -1,0 +1,37 @@
+{% extends 'hbase.html' %}
+{% block title %}Health Monitoring Directory{% endblock %}
+
+{% block content %}
+<div class="card p-5 animate__animated animate__fadeIn">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary fw-bold mb-0">❤️ Health Monitoring Directory</h2>
+    <a href="{% url 'add_monitor' %}" class="btn btn-success px-4">+ Add Monitor</a>
+  </div>
+
+  {% if monitors %}
+    <ul class="list-group list-group-flush">
+      {% for m in monitors %}
+        <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-2">
+          <div>
+            <h6 class="mb-1 text-dark fw-semibold">{{ m.name }}</h6>
+            <small class="text-muted">{{ m.description }}</small>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="{% url 'update_monitor' m.id %}" class="btn btn-outline-primary btn-sm px-3">
+              <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a href="{% url 'delete_monitor' m.id %}" class="btn btn-outline-danger btn-sm px-3">
+              <i class="bi bi-trash"></i> Delete
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="text-center mt-4">
+      <p class="text-muted mb-3">No health monitors found. Start by adding a new one.</p>
+      <a href="{% url 'add_monitor' %}" class="btn btn-primary">Add Your First Monitor</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
