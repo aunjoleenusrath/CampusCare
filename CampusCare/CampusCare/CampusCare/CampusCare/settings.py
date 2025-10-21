@@ -10,120 +10,171 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+# Import Path class from pathlib to handle file system paths
 from pathlib import Path
 
+# ----------------------------------------------------------------------
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR is the root directory of the project
+# You can join other directories using BASE_DIR / 'foldername'
+# ----------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Explanation:
+# Path(__file__) → gives the full path to this settings.py file
+# .resolve() → returns the absolute path
+# .parent → goes one level up to the project folder
+# .parent.parent → goes two levels up (the root of the project)
 
-
+# ----------------------------------------------------------------------
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# ----------------------------------------------------------------------
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# This key is used for cryptographic signing in Django
 SECRET_KEY = 'django-insecure-x=1@xp8@u7us*f%jgpup_$v-c99u-vezs@)2h9+&efr=$w36wa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Debug mode should only be True during development
 DEBUG = True
 
+# ALLOWED_HOSTS specifies which hosts/domain names your Django site can serve
+# Empty list means only localhost is allowed
 ALLOWED_HOSTS = []
 
-
+# ----------------------------------------------------------------------
 # Application definition
+# ----------------------------------------------------------------------
 
+# INSTALLED_APPS is a list of all apps installed in this Django project
+# Includes default Django apps and custom apps for this project
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'campusapp',
-    'mentalsupport',
-    'healthmonitor',
-    'studentsupport',
-    'home',
+    # Default Django apps
+    'django.contrib.admin',           # Admin site
+    'django.contrib.auth',            # Authentication framework
+    'django.contrib.contenttypes',    # Django content type system
+    'django.contrib.sessions',        # Session framework
+    'django.contrib.messages',        # Messaging framework
+    'django.contrib.staticfiles',     # Serve static files
+
+    # Custom apps for CampusCare project
+    'campusapp',                      # Main campus application
+    'mentalsupport',                  # Mental support services
+    'healthmonitor',                  # Health monitoring module
+    'studentsupport',                 # Student support services
+    'home',                            # Homepage app
 ]
 
+# MIDDLEWARE is a list of middleware classes applied to requests/responses
+# Middleware are hooks to process request/response globally
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',               # Security enhancements
+    'django.contrib.sessions.middleware.SessionMiddleware',        # Manages sessions
+    'django.middleware.common.CommonMiddleware',                   # Handles common HTTP tasks
+    'django.middleware.csrf.CsrfViewMiddleware',                  # CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware',     # Associates users with requests
+    'django.contrib.messages.middleware.MessageMiddleware',        # Temporary messages framework
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',      # Prevents clickjacking
 ]
 
+# ROOT_URLCONF points to the root URL configuration module
+# Django uses this to resolve URL patterns for views
 ROOT_URLCONF = 'CampusCare.urls'
 
+# ----------------------------------------------------------------------
+# Templates configuration
+# ----------------------------------------------------------------------
 TEMPLATES = [
     {
+        # Backend engine used for rendering templates
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],  # can be empty
+
+        # List of directories where Django will search for templates
+        'DIRS': ['templates'],  # You can add custom template folders here
+
+        # If True, looks for templates inside each installed app's "templates" folder
         'APP_DIRS': True,
+
+        # Additional options for template rendering
         'OPTIONS': {
+            # Context processors are functions that add variables to template context automatically
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',          # Adds debug info
+                'django.template.context_processors.request',        # Adds request object
+                'django.contrib.auth.context_processors.auth',       # Adds user object
+                'django.contrib.messages.context_processors.messages',# Adds messages framework
             ],
         },
     },
 ]
 
-
+# WSGI_APPLICATION specifies the WSGI callable for deploying the project
+# Used by deployment servers like Gunicorn or uWSGI
 WSGI_APPLICATION = 'CampusCare.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# ----------------------------------------------------------------------
+# Database configuration
+# ----------------------------------------------------------------------
+# Using SQLite for development purposes
+# In production, you might use PostgreSQL, MySQL, or other databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Database backend
+        'NAME': BASE_DIR / 'db.sqlite3',        # Database file location
     }
 }
 
-
+# ----------------------------------------------------------------------
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# See https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+# ----------------------------------------------------------------------
+# Validators are used to enforce strong passwords
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        # Prevents passwords similar to user attributes
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        # Ensures minimum password length
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        # Prevents use of common passwords
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        # Prevents passwords consisting only of numbers
     },
 ]
 
-
+# ----------------------------------------------------------------------
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+# See https://docs.djangoproject.com/en/5.2/topics/i18n/
+# ----------------------------------------------------------------------
 
+# Default language code for the project
 LANGUAGE_CODE = 'en-us'
 
+# Default timezone for the project
 TIME_ZONE = 'UTC'
 
+# Enable Django's translation system
 USE_I18N = True
 
+# Enable timezone-aware datetimes
 USE_TZ = True
 
-
+# ----------------------------------------------------------------------
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# ----------------------------------------------------------------------
+# URL to use when referring to static files located in STATICFILES_DIRS
 STATIC_URL = 'static/'
 
+# ----------------------------------------------------------------------
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# See https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+# ----------------------------------------------------------------------
+# New models will use BigAutoField as default primary key type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
