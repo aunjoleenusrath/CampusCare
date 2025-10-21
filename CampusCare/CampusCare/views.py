@@ -10,7 +10,7 @@ def add_monitor(request):
             form.save()
             return redirect('list_monitors')
     else:
-        form = HealthMonitorForm()
+        form = HealthMonitorForm(])
     return render(request, 'healthmonitor/add_monitor.html', {'form': form})
 
 
