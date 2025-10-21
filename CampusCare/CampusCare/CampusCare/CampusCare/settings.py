@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'campusapp',
     'mentalsupport',
-    'HealthMonitor',
+    'healthmonitor',
+    'studentsupport',
+    # 'home',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'CampusCare.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # can be empty
+        'DIRS': ['templates'],  # can be empty
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
