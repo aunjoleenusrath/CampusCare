@@ -1,9 +1,18 @@
+# home/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.list_services, name='list_services'),
-    path('add/', views.add_service, name='add_service'),
-    path('update/<int:id>/', views.update_service, name='update_service'),
-    path('delete/<int:id>/', views.delete_service, name='delete_service'),
+    path('', views.index, name='index'),  # ✅ matches your view
+    path('login/', views.login_page, name='login_page'),
+    path('signup/', views.signup_page, name='signup_page'),
+    path('diseases/', views.diseases_page, name='diseases_page'),
+    path('payment/', views.payment_page, name='payment_page'),
+    path('gateway/', views.payment_gateway, name='payment_gateway'),
+path('signup/', views.signup_page, name='signup_page'),
+    path('diseases/', views.diseases_page, name='diseases_page'),
+    path('payment/', views.payment_page, name='payment_page'),
+    path('gateway/', views.payment_gateway, name='payment_gateway'),
 ]
+
+
