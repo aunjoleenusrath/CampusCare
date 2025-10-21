@@ -9,10 +9,6 @@ urlpatterns = [
     path('diseases/', views.diseases_page, name='diseases_page'),
     path('payment/', views.payment_page, name='payment_page'),
     path('gateway/', views.payment_gateway, name='payment_gateway'),
-path('signup/', views.signup_page, name='signup_page'),
-    path('diseases/', views.diseases_page, name='diseases_page'),
-    path('payment/', views.payment_page, name='payment_page'),
-    path('gateway/', views.payment_gateway, name='payment_gateway'),
-]
+
 
 
