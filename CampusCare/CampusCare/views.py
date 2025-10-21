@@ -47,7 +47,3 @@ def payment_gateway(request):
     price = request.GET.get("price", "—")
     return render(request, 'home/payment_gateway.html', {"item": item, "price": price})
 
-def payment_gateway(request):
-    item = request.GET.get("item", "Unknown")
-    price = request.GET.get("price", "—")
-    return render(request, 'home/payment_gateway.html', {"item": item, "price": price})
