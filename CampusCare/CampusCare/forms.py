@@ -1,11 +1,11 @@
 from django import forms
-from .models import HealthMonitor
+from .models import MentalSupport
 
-class HealthMonitorForm(forms.ModelForm):
+class MentalSupportForm(forms.ModelForm):
     class Meta:
-        model = HealthMonitor
+        model = MentalSupport
         fields = ['name', 'description']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter health service name'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Describe the service...'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter support type'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Add description...'}),
         }
