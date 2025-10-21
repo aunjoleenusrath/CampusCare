@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #dbe6f8, #b5d2f3, #9dc3f2, #7cb2ee, #c2dcff);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease infinite;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .login-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: 0.4s ease;
+    animation: fadeUp 1.3s ease forwards;
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .login-card h3 {
+    font-weight: 700;
+    color: #1c3d91;
+  }
+
+  .form-control {
+    border-radius: 10px;
+    border: 1px solid #b5d2f3;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #2657a4;
+    box-shadow: 0 0 8px rgba(38, 87, 164, 0.3);
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #2657a4, #1c3d91);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #1c3d91, #0b1e54);
+    box-shadow: 0 0 15px rgba(20, 47, 112, 0.4);
+    transform: translateY(-2px);
+  }
+
+  a {
+    color: #1c3d91;
+    font-weight: 500;
+  }
+
+  a:hover {
+    color: #0b1e54;
+    text-decoration: underline;
+  }
+
+  .brand-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand-header img {
+    width: 70px;
+    margin-bottom: 10px;
+  }
+
+  .brand-header h5 {
+    color: #243869;
+    font-weight: 600;
+  }
+</style>
+
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <div class="login-card p-4" style="width: 400px;">
+    <div class="text-center mb-4 brand-header">
+      <img src="{% static 'img/logo.png' %}" alt="UAP Logo">
+      <h5>University of Asia Pacific</h5>
+      <h3 class="mt-2">Login to Campus Care</h3>
+      <p style="color:#324a7a; font-size:0.9rem;">Welcome back! Please enter your credentials.</p>
+    </div>
+
+    {% if error %}
+      <p class="text-danger text-center">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+      </div>
+
+      <button class="btn btn-primary w-100 mt-3">Login</button>
+      <p class="text-center mt-3 mb-0" style="color:#324a7a;">
+        Don’t have an account?
+        <a href="{% url 'signup_page' %}">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}

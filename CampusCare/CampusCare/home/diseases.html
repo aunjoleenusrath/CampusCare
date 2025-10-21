@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Campus Access Medicine{% endblock %}
+{% block content %}
+
+<style>
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f8ff;
+    margin: 0;
+    color: #1b2b5a;
+  }
+  .navbar {
+    background: linear-gradient(135deg, #cce0fb, #b5d2f3, #a8c8f6);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 12px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .navbar-brand img {
+    height: 48px;
+    width: auto;
+    margin-right: 12px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .brand-text { display:flex; flex-direction:column; line-height:1.1; }
+  .brand-text .main-title { font-weight:700; color:#142f70; font-size:1.1rem; }
+  .brand-text .sub-title { font-size:0.85rem; color:#3c4a74; }
+  .nav-buttons { display:flex; align-items:center; gap:15px; }
+  .btn-login,.btn-signup{border-radius:25px;padding:6px 18px;font-weight:500;font-size:0.95rem;border:1px solid #003c82;transition:all .3s;text-decoration:none}
+  .btn-login{color:#0b1e54;background:transparent}
+  .btn-login:hover{background:#003c82;color:#fff}
+  .btn-signup{background:linear-gradient(90deg,#337dff,#1d5de6);border:none;color:#fff}
+  .btn-signup:hover{background:linear-gradient(90deg,#1c4eb6,#003c82);transform:scale(1.05)}
+  .hero{background:linear-gradient(135deg,#003c82,#045b9a,#1a74b8);color:#fff;text-align:center;padding:120px 10% 160px;position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:24px 24px}
+  .hero h1{font-weight:700;font-size:3rem;margin-bottom:10px;position:relative;z-index:2}
+  .hero p{font-size:1.15rem;color:#d8e4fa;margin-bottom:40px;position:relative;z-index:2}
+  .search-bar{display:flex;justify-content:center;align-items:stretch;max-width:700px;margin:auto;background:#fff;border-radius:50px;overflow:hidden;box-shadow:0 6px 25px rgba(0,0,0,0.2);z-index:3;position:relative}
+  .search-bar input{flex:1;padding:16px 20px;border:none;font-size:1rem;outline:none}
+  .search-bar select{background:#f0f4ff;border:none;padding:0 18px;font-weight:500;color:#003c82;outline:none;cursor:pointer}
+  .search-bar button{background:#1a74b8;color:#fff;border:none;padding:0 25px;font-weight:600;cursor:pointer;transition:.3s}
+  .search-bar button:hover{background:#0d4d91}
+  .section{padding:70px 10%;text-align:center;animation:fadeUp 1.2s ease}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;justify-items:center}
+  .card{background:#fff;border-radius:20px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:25px;max-width:280px;transition:.3s ease;opacity:0;transform:translateY(15px)}
+  .card.visible{opacity:1;transform:translateY(0)}
+  .card h4{color:#1a2b5f;font-weight:600;margin-bottom:10px}
+  .card p{color:#4a5782;font-size:.95rem}
+  .hidden{display:none!important}
+  .btn-pay{display:inline-block;background:linear-gradient(90deg,#1a74b8,#003c82);color:#fff;border:none;border-radius:25px;padding:8px 20px;margin-top:12px;font-size:.9rem;transition:.3s;text-decoration:none}
+  .btn-pay:hover{background:#0b326b;transform:scale(1.05)}
+  footer{text-align:center;color:#243869;margin:40px 0 20px;font-size:.9rem}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+<nav class="navbar">
+  <a class="navbar-brand" href="{% url 'diseases_page' %}">
+
+
+  </a>
+
+</nav>
+
+<section class="hero">
+  <h1>Campus Access Medicine</h1>
+  <p>Find medicines, equipment, and healthcare services within your campus instantly.</p>
+
+  <form class="search-bar" onsubmit="searchItems(event)">
+    <input type="text" id="searchInput" placeholder="Search medicines or equipment..." />
+    <select id="searchType">
+      <option value="medicine">Medicines</option>
+      <option value="equipment">Equipments</option>
+    </select>
+    <button type="submit"><i class="bi bi-search"></i></button>
+  </form>
+</section>
+
+<section class="section hidden" id="medicines">
+  <h2>💊 Medicine Details</h2>
+  <div class="cards" id="medicineResults"></div>
+</section>
+<section class="section hidden" id="equipment">
+  <h2>🩺 Equipment Details</h2>
+  <div class="cards" id="equipmentResults"></div>
+</section>
+
+<section class="section" style="background:linear-gradient(180deg,#eaf1ff,#f8fbff)">
+  <h2>🌿 Campus Care Services</h2>
+  <div class="cards">
+    <div class="card visible">
+      <h4>🩺 Medical Services</h4>
+      <p>Doctor consultations, first-aid, and medicine stock tracking — all on campus.</p>
+      <a href="/medicine/" class="btn-pay">Explore</a>
+    </div>
+    <div class="card visible">
+      <h4>💬 Mental Health</h4>
+      <p>Access confidential counseling and wellbeing guidance.</p>
+      <a href="/mental/" class="btn-pay">Explore</a>
+    </div>
+    <div class="card visible">
+      <h4>🧘‍♀️ Health Monitoring</h4>
+      <p>Track your physical health and wellness plans.</p>
+      <a href="/health/" class="btn-pay">Explore</a>
+    </div>
+    <div class="card visible">
+      <h4>🎓 Student Support</h4>
+      <p>Get academic and personal mentorship anytime.</p>
+      <a href="/student/" class="btn-pay">Explore</a>
+    </div>
+  </div>
+</section>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<script>
+  const medicines = [
+    { name:"Napa", desc:"Pain reliever and fever reducer available at campus store.", features:["Reduces fever quickly","Relieves headache & body pain","Safe for students","Available 24/7 at campus clinic"] },
+    { name:"Fexo", desc:"Allergy relief tablet for sneezing and itching.", features:["24-hour allergy protection","Non-drowsy","Clinically tested","Recommended by UAP Medical Center"] }
+  ];
+  const equipments = [
+    { name:"Thermometer", desc:"Digital temperature checker for student health monitoring.", features:["Accurate readings","Quick results","Reusable","Available for borrowing"] },
+    { name:"Wheelchair", desc:"Mobility aid available at UAP medical unit.", features:["Lightweight design","Adjustable footrests","Free for temporary use","Sanitized regularly"] }
+  ];
+  function searchItems(e){
+    e.preventDefault();
+    const q=document.getElementById("searchInput").value.trim().toLowerCase();
+    const type=document.getElementById("searchType").value;
+    const med=document.getElementById("medicines"), eq=document.getElementById("equipment");
+    const mr=document.getElementById("medicineResults"), er=document.getElementById("equipmentResults");
+    med.classList.add("hidden"); eq.classList.add("hidden"); mr.innerHTML=""; er.innerHTML="";
+    if(q==="")return;
+    const data=type==="medicine"?medicines:equipments;
+    const matches=data.filter(i=>i.name.toLowerCase().includes(q));
+    if(matches.length>0){
+      matches.forEach(i=>{
+        const d=document.createElement("div");
+        d.className="card visible";
+        d.innerHTML=`<h4>${i.name}</h4><p>${i.desc}</p>
+          <ul style="text-align:left;margin-top:10px;color:#2f3e68;">
+            ${i.features.map(f=>`<li>• ${f}</li>`).join('')}
+          </ul>
+          <a href="/payment/?item=${i.name}" class="btn-pay">Proceed to Payment</a>`;
+        if(type==="medicine")mr.appendChild(d);else er.appendChild(d);
+      });
+      if(type==="medicine")med.classList.remove("hidden");else eq.classList.remove("hidden");
+      window.scrollTo({top:(type==="medicine"?med.offsetTop:eq.offsetTop)-60,behavior:"smooth"});
+    }
+  }
+</script>
+{% endblock %}
